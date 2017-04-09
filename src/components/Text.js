@@ -1,14 +1,13 @@
 import React from 'react';
 import Shape from './Shape';
 
-const Tag = 'p';
-
 export default class Text extends Shape {
 
   static defaultProps = {
     x:0,
     y:0,
-    position: 'relative'
+    position: 'relative',
+    tag: 'span'
   }
 
   computeStyles() {
@@ -18,14 +17,11 @@ export default class Text extends Shape {
     if(textColor) {
       style.color = textColor;
     }
+
     return style;
   }
 
-  renderCore(style: any) {
-    return (
-      <Tag style={style} className={ this.props.mode == 'Debug'? 'debug': null}>
-        { this.props.text }
-      </Tag>
-    )
+  renderCore() {
+    return this.props.text;
   }
 }

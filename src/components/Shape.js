@@ -1,24 +1,10 @@
 // @flow
 import React, { Component } from 'react';
+import type { ShapeProps } from './CommonTypes';
 import { toPixels } from '../utils/UnitConverter';
 import './Shape.css';
 
-type ShapeMode = 'Debug' | 'Normal' | 'Draggable';
-
 export type Position = 'static' | 'absolute' | 'relative' | 'fixed' | 'sticky';
-
-type Props = {
-  children?: any,
-  color?: String,
-  x: Number,
-  y: Number,
-  width: Number| String,
-  height: Number| String,
-  opacity?: Number,
-  position: Position,
-  tag?: any,
-  mode?: ShapeMode
-}
 
 const defaultSize = '100%';
 
@@ -28,7 +14,7 @@ function computeStylesFromProps(componentProps) {
   let style = {
     backgroundColor: color,
     position: position,
-    opacity: typeof opacity == 'number'? opacity/100: 1,
+    opacity: typeof opacity === 'number'? opacity/100: 1,
     left: toPixels(x),
     top: toPixels(y),
     width: width,
@@ -40,7 +26,7 @@ function computeStylesFromProps(componentProps) {
 
 export default class Shape extends Component {
 
-  props: Props;
+  props: ShapeProps;
 
   static defaultProps = {
     x: 0,
@@ -52,15 +38,8 @@ export default class Shape extends Component {
     mode: 'Debug'
   };
 
-  renderCore(style:any) {
-    const Tag = this.props.tag;
-
-    return (
-      // $FlowFixMe
-      <Tag style={style} className={ this.props.mode == 'Debug'? 'debug': null}>
-        { this.props.children }
-      </Tag>
-    )
+  renderCore() {
+    return this.props.children;
   }
 
   computeStyles() {
@@ -69,6 +48,12 @@ export default class Shape extends Component {
 
   render () {
     const computedStyle = this.computeStyles();
-    return this.renderCore(computedStyle);
+    const Tag = this.props.tag;
+
+    return (
+      <Tag style={computedStyle} className={ this.props.mode === 'Debug'? 'debug': null }>
+        { this.renderCore(computedStyle) }
+      </Tag>
+    );
   }
 }
