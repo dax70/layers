@@ -1,4 +1,3 @@
-import React from 'react';
 import Shape from './Shape';
 
 export default class Text extends Shape {

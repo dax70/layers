@@ -9,7 +9,7 @@ export type Position = 'static' | 'absolute' | 'relative' | 'fixed' | 'sticky';
 const defaultSize = '100%';
 
 function computeStylesFromProps(componentProps) {
-  const { color, x, y, width, height, mode, opacity, position } = componentProps;
+  const { color, x, y, width, height, opacity, position } = componentProps;
 
   let style = {
     backgroundColor: color,
@@ -42,6 +42,31 @@ export default class Shape extends Component {
     return this.props.children;
   }
 
+  renderAdornments() {
+    const adornments = this.props.adornments;
+
+    if(!adornments) {
+      return this.renderCore();
+    }
+
+    const innerStyle = {
+      backgroundColor: this.props.color,
+      height: '100%'
+    }
+
+    const innerWrap = (
+      <div key="inner" data-inner style={innerStyle}>
+        { this.renderCore()}
+      </div>
+    );
+
+    const adornmentProps = adornments.props;
+
+    const children = adornmentProps.children? [adornmentProps.children, innerWrap]: [innerWrap];
+
+    return React.cloneElement(adornments, adornments.props, children);
+  }
+
   computeStyles() {
     return computeStylesFromProps(this.props);
   }
@@ -52,7 +77,7 @@ export default class Shape extends Component {
 
     return (
       <Tag style={computedStyle} className={ this.props.mode === 'Debug'? 'debug': null }>
-        { this.renderCore(computedStyle) }
+        { this.renderAdornments() }
       </Tag>
     );
   }

@@ -1,6 +1,5 @@
 // @flow
 import React, { Component } from 'react';
-import Shape from './Shape';
 
 export type BorderStyle =
   'none' |
@@ -17,7 +16,7 @@ export type BorderStyle =
 
 export type Props = {
   children: any,
-  width: Number | String,
+  thickness: Number | String,
   color: String,
   style: BorderStyle
 }
@@ -27,17 +26,17 @@ export default class Border extends Component {
   props: Props;
 
   static defaultProps = {
-    width: '1px',
+    thickness: '1px',
     style: 'solid',
-    color: '000'
+    color: '#000'
   }
 
   render() {
-    const { color, width, style } = this.props;
+    const { color, thickness } = this.props;
     const styleToApply = {
-      borderStyle: style,
-      borderColor: color,
-      borderWidth: width
+      backgroundColor: color,
+      height: '100%',
+      padding: thickness
     };
 
     return (

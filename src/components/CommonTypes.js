@@ -1,9 +1,6 @@
-
-export type ShapeMode = 'Debug' | 'Normal' | 'Draggable';
-
-export ShapeKind = {
-
-}
+/* Probably should rename to CommonProps */
+import React from 'react';
+// @flow
 
 export type ShapeProps = {
   children?: any,
@@ -15,21 +12,17 @@ export type ShapeProps = {
   opacity?: Number,
   position: Position,
   tag?: any,
-  adorements: Adorment | Array<Adorment>,
+  adornments: ReactElement,
   mode?: ShapeMode
-}
-
-export type Point = {
-    x: Number,
-    y: Number
-}
-
-export type Bounds = {
-  width: Number,
-  height: Number
 }
 
 export type ShapeStyles = {
   color: String,
   textColor: String
+}
+
+export type ShapeMode = 'Debug' | 'Normal' | 'Draggable';
+
+export type ShapeKind = {
+
 }
