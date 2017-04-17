@@ -38,16 +38,26 @@ export default class Shape extends Component {
     mode: 'Debug'
   };
 
+  onClick: Function;
+
+  constructor(props: ShapeProps) {
+    super(props);
+    this.onClick = this.onClick.bind(this);
+  }
+
   renderCore() {
     return this.props.children;
   }
 
-  renderAdornments() {
+  renderChildren() {
     const adornments = this.props.adornments;
 
     if(!adornments) {
       return this.renderCore();
     }
+
+    // For debugging only
+    console.log(`Adorments type is ${Array.isArray(adornments)? 'is Array': 'object'}`);
 
     const innerStyle = {
       backgroundColor: this.props.color,
@@ -71,13 +81,20 @@ export default class Shape extends Component {
     return computeStylesFromProps(this.props);
   }
 
+  onClick(e: SyntheticEvent) {
+    const clickHandler = this.props.onClick;
+    if(clickHandler) {
+      clickHandler(this);
+    }
+  }
+
   render () {
     const computedStyle = this.computeStyles();
     const Tag = this.props.tag;
 
     return (
-      <Tag style={computedStyle} className={ this.props.mode === 'Debug'? 'debug': null }>
-        { this.renderAdornments() }
+      <Tag onClick={this.onClick} style={computedStyle} className={ this.props.mode === 'Debug'? 'debug': null }>
+        { this.renderChildren() }
       </Tag>
     );
   }

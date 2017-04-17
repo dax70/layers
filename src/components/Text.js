@@ -5,7 +5,6 @@ export default class Text extends Shape {
   static defaultProps = {
     x:0,
     y:0,
-    position: 'relative',
     tag: 'span'
   }
 

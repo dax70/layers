@@ -2,36 +2,27 @@
 
 import React, { Component } from 'react';
 import './App.css';
-import { Shape, Text, Border } from './components';
+
+import { observer } from 'mobx-react';
+
+import { Document, Layer, Selectable, Shape, Text, Border, ShapeEditor } from './components';
+
 
 class App extends Component {
   render() {
+    const doc = this.props.document;
+
     return (
       <div className="App">
-          <Shape key={1} x="10" y="10" width="100px" height="100px"
-                  color="red"
-                  adornments={<Border thickness="5px"/>}
-                  >
-              <Text text="hello world" textColor="blue"/>
-          </Shape>
-          <Shape key={2} x="150" y="10" width="100px" height="100px"
-                  color="blue">
-              <Text text="hello world" />
-          </Shape>
-
-          <Shape key={3} x="300" y="10" width="100px" height="100px"
-                  color="green"
-                  adornments={
-                    <Border thickness="2px" color="yellow">
-                      <Border thickness="3px" color="blue"/>
-                    </Border>
-                    }
-                  >
-              <Text text="hello world" textColor="blue"/>
-          </Shape>
+        <div>
+          <div style={{position: 'fixed', top: 30, right: 10, zIndex:7000}}>
+            <ShapeEditor shape={doc.selectedItem}/>
+          </div>
+        </div>
+        <Document document={doc}/>
       </div>
     );
   }
 }
 
-export default App;
+export default observer(App);
