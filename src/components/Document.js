@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import { observer } from 'mobx-react';
 import Layer from './Layer';
 import Shape from './Shape';
 
+@observer
 export default class Document extends Component {
   constructor(props) {
     super(props);
@@ -9,10 +11,14 @@ export default class Document extends Component {
   }
 
   onSelectItem(component) {
-    console.log(component);
     const doc = this.props.document;
-    doc.selectedItem = component.props.objRef;
+    doc.selectItem(component.props.objRef);
     console.log(doc.selectedItem);
+  }
+
+  onDeselectItem() {
+    const doc = this.props.document;
+    doc.deselectItem();
   }
 
   render() {
@@ -28,7 +34,7 @@ export default class Document extends Component {
       switch (item.kind) {
         case 'Layer':
           return (
-            <Layer key={i} {...item}>
+            <Layer key={i} {...item} objRef={item} onClick={this.onDeselectItem()}>
             {
               item.shapes.map((shape, i) => {
                 return <Shape key={i} {...shape} objRef={shape} onClick={this.onSelectItem}/>

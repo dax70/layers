@@ -10,8 +10,17 @@ const yellowShape = new Shape({
   height: 50
 });
 
+const blueShape = new Shape({
+  color: 'blue',
+  x: 150,
+  y: 150,
+  width: 100,
+  height: 100
+});
+
 const layer = new Layer();
 layer.addShape(yellowShape);
+layer.addShape(blueShape);
 
 const doc = new Document();
 doc.add(layer);

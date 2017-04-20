@@ -1,6 +1,6 @@
 import React from 'react';
+import { observer } from 'mobx-react';
 import Shape from './Shape';
-import { toPixels } from '../utils/UnitConverter';
 
 function computeStylesFromProps(componentProps) {
   const { color, x, y, width, height, opacity, position } = componentProps;
@@ -9,8 +9,8 @@ function computeStylesFromProps(componentProps) {
     backgroundColor: color,
     position: position,
     opacity: typeof opacity === 'number'? opacity/100: 1,
-    left: toPixels(x),
-    top: toPixels(y),
+    left: x,
+    top: y,
     width: width,
     height: height
   }
@@ -18,6 +18,7 @@ function computeStylesFromProps(componentProps) {
   return style;
 }
 
+@observer
 export default class Layer extends Shape {
 
   static defaultProps = Object.assign({}, Shape.defaultProps, { width:'100vw', height:'100vh'});

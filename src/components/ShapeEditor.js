@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import { observer } from 'mobx-react';
 
+@observer
 export default class ShapeEditor extends Component {
 
   constructor(props) {
@@ -19,17 +21,16 @@ export default class ShapeEditor extends Component {
   render() {
       const {shape} = this.props;
       if(!shape) {
-        return null;
+        return <div>No Shape Selected</div>;
       }
 
-      console.log(shape);
 
       return (
         <div>
-          <div>Postion X: <input type="text" name="x" onChange={this.onChange} /></div>
-          <div>Position Y: <input type="text" name="y" onChange={this.onChange} /></div>
-          <div>Height: <input type="text" name="height" onChange={this.onChange} /></div>
-          <div>Width: <input type="text" name="width" onChange={this.onChange} /></div>
+          <div>Postion X: <input type="text" name="x" value={shape.x} onChange={this.onChange} /></div>
+          <div>Position Y: <input type="text" name="y" value={shape.y} onChange={this.onChange} /></div>
+          <div>Height: <input type="text" name="height" value={shape.height} onChange={this.onChange} /></div>
+          <div>Width: <input type="text" name="width" value={shape.width} onChange={this.onChange} /></div>
         </div>
       )
   }

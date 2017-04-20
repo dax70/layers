@@ -1,30 +1,39 @@
-import {extendObservable } from 'mobx';
+/* @flow */
+import { observable } from 'mobx';
+import type { Unit, ShapeProps } from '../types';
+import IdGenerator from '../utils/IdGenerator';
 
 const defaultSize = '100%';
 
+const defaultValues = {
+  x: 0,
+  y: 0,
+  width: defaultSize,
+  height: defaultSize,
+  color: 'red'
+};
+
 export default class Shape {
+  id: number;
+  kind: string = 'Shape';
+  @observable x: Unit = 0;
+  @observable y: Unit = 0;
+  @observable color: string = 'red';
+  @observable width: Unit = defaultSize;
+  @observable height: Unit = defaultSize;
+  @observable mode:string = 'Debug';
 
-  constructor({
-      x = 0,
-      y = 0,
-      color = 'red',
-      width = defaultSize,
-      height = defaultSize
-    }) {
-
-    this.kind = 'Shape';
-
-    extendObservable(this, {
-      x: x,
-      y: y,
-      color: color,
-      width: width,
-      height: height,
-      mode: 'Debug'
-    });
+  constructor(props: ShapeProps = defaultValues) {
+    const { x, y, color, width, height } = props;
+    this.x = x || 0;
+    this.y = y || 0;
+    this.color = color;
+    this.width = width;
+    this.height = height;
+    this.id = IdGenerator();
   }
 
-  move(x, y) {
+  move(x: number, y: number): void {
     if(x) {
       this.x = x;
     }
@@ -34,7 +43,7 @@ export default class Shape {
     }
   }
 
-  resize(height, width) {
+  resize(height: number, width: number): void {
     if(height) {
       this.height = height;
     }

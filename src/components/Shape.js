@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react';
+import { observer } from 'mobx-react';
 import type { ShapeProps } from './CommonTypes';
-import { toPixels } from '../utils/UnitConverter';
 import './Shape.css';
 
 export type Position = 'static' | 'absolute' | 'relative' | 'fixed' | 'sticky';
@@ -15,8 +15,8 @@ function computeStylesFromProps(componentProps) {
     backgroundColor: color,
     position: position,
     opacity: typeof opacity === 'number'? opacity/100: 1,
-    left: toPixels(x),
-    top: toPixels(y),
+    left: x,
+    top: y,
     width: width,
     height: height
   }
@@ -24,6 +24,7 @@ function computeStylesFromProps(componentProps) {
   return style;
 }
 
+@observer
 export default class Shape extends Component {
 
   props: ShapeProps;
@@ -82,6 +83,7 @@ export default class Shape extends Component {
   }
 
   onClick(e: SyntheticEvent) {
+    e.preventDefault();
     const clickHandler = this.props.onClick;
     if(clickHandler) {
       clickHandler(this);
@@ -90,7 +92,7 @@ export default class Shape extends Component {
 
   render () {
     const computedStyle = this.computeStyles();
-    const Tag = this.props.tag;
+    const Tag = this.props.tag || 'div';
 
     return (
       <Tag onClick={this.onClick} style={computedStyle} className={ this.props.mode === 'Debug'? 'debug': null }>
