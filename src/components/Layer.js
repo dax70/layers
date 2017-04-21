@@ -18,7 +18,6 @@ function computeStylesFromProps(componentProps) {
   return style;
 }
 
-@observer
 export default class Layer extends Shape {
 
   static defaultProps = Object.assign({}, Shape.defaultProps, { width:'100vw', height:'100vh'});

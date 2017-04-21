@@ -12,11 +12,11 @@ export default class Document extends Component {
   }
 
   onSelectItem(e, component) {
+    e.stopPropagation();
     const doc = this.props.document;
     //doc.selectItem(component.props.objRef);
-    doc.selectItem = component.props.objRef;
-    console.log(doc.selectedItem);
-    e.preventDefault();
+    doc.selectItem(component.props.objRef);
+    console.log(doc.getSelectedItem());
   }
 
   onDeselectItem() {
@@ -27,7 +27,7 @@ export default class Document extends Component {
   render() {
     const document = this.props.document;
     const items = document.items;
-    const selectedItem = document.selectedItem;
+    const selectedItem = document.getSelectedItem();
     console.log(selectedItem);
 
     const renderTree = items.map((item, i) => {

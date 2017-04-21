@@ -24,6 +24,8 @@ layer.addShape(blueShape);
 
 const doc = new Document();
 doc.add(layer);
+// doc.add(yellowShape);
+// doc.add(blueShape);
 
 
 ReactDOM.render(

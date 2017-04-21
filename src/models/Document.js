@@ -14,6 +14,10 @@ export default class Document {
     this.items.push(item);
   }
 
+  getSelectedItem(): ?Shape {
+    return this.selectedItem;
+  }
+
   @action selectItem(item: Shape) {
     this.selectedItem = item;
   }
