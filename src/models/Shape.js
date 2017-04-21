@@ -30,7 +30,7 @@ export default class Shape {
     this.color = color;
     this.width = width;
     this.height = height;
-    this.id = IdGenerator();
+    this.id = IdGenerator()();
   }
 
   move(x: number, y: number): void {

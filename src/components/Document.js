@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import Layer from './Layer';
 import Shape from './Shape';
+import IdGenerator from '../utils/IdGenerator';
 
 @observer
 export default class Document extends Component {
@@ -14,7 +15,6 @@ export default class Document extends Component {
   onSelectItem(e, component) {
     e.stopPropagation();
     const doc = this.props.document;
-    //doc.selectItem(component.props.objRef);
     doc.selectItem(component.props.objRef);
     console.log(doc.getSelectedItem());
   }
@@ -30,28 +30,37 @@ export default class Document extends Component {
     const selectedItem = document.getSelectedItem();
     console.log(selectedItem);
 
-    const renderTree = items.map((item, i) => {
+    const shadowChildren = [];
+
+    const renderTree: Array<Shape> = items.map((item, i) => {
       // const Tag = item.kind;
       // return <Tag key={i} {...item} />
 
       switch (item.kind) {
         case 'Layer':
           return (
-            <Layer key={i} {...item} objRef={item}>
+            <Layer key={IdGenerator()()} {...item} objRef={item}>
             {
               item.shapes.map((shape, i) => {
+                shadowChildren.push(<Shape key={i} {...shape} objRef={shape} onClick={this.onSelectItem} />);
                 return <Shape key={i} {...shape} objRef={shape} onClick={this.onSelectItem}/>
               })
             }
             </Layer>
           );
-        case 'Shape':
-          return <Shape key={i} {...item} objRef={item} onClick={this.onSelectItem}/>
         default:
           throw new Error(`Type '${item.kind}' not supported.`);
       }
     });
 
+    const shadowLayer = (
+      <Layer key={IdGenerator()()}>
+        Shadow layer
+        { shadowChildren }
+      </Layer>
+    );
+
+    renderTree.push(shadowLayer);
     return (
       <div style={{position: 'relative'}}>
         { renderTree }
