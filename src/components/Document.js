@@ -8,12 +8,15 @@ export default class Document extends Component {
   constructor(props) {
     super(props);
     this.onSelectItem = this.onSelectItem.bind(this);
+    this.onDeselectItem = this.onDeselectItem.bind(this);
   }
 
-  onSelectItem(component) {
+  onSelectItem(e, component) {
     const doc = this.props.document;
-    doc.selectItem(component.props.objRef);
+    //doc.selectItem(component.props.objRef);
+    doc.selectItem = component.props.objRef;
     console.log(doc.selectedItem);
+    e.preventDefault();
   }
 
   onDeselectItem() {
@@ -34,7 +37,7 @@ export default class Document extends Component {
       switch (item.kind) {
         case 'Layer':
           return (
-            <Layer key={i} {...item} objRef={item} onClick={this.onDeselectItem()}>
+            <Layer key={i} {...item} objRef={item}>
             {
               item.shapes.map((shape, i) => {
                 return <Shape key={i} {...shape} objRef={shape} onClick={this.onSelectItem}/>

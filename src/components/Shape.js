@@ -83,10 +83,9 @@ export default class Shape extends Component {
   }
 
   onClick(e: SyntheticEvent) {
-    e.preventDefault();
     const clickHandler = this.props.onClick;
     if(clickHandler) {
-      clickHandler(this);
+      clickHandler(e, this);
     }
   }
 
