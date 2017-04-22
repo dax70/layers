@@ -1,22 +1,6 @@
 import React from 'react';
 import { observer } from 'mobx-react';
-import Shape from './Shape';
-
-function computeStylesFromProps(componentProps) {
-  const { color, x, y, width, height, opacity, position } = componentProps;
-
-  let style = {
-    backgroundColor: color,
-    position: position,
-    opacity: typeof opacity === 'number'? opacity/100: 1,
-    left: x,
-    top: y,
-    width: width,
-    height: height
-  }
-
-  return style;
-}
+import Shape, { computeStylesFromProps } from './Shape';
 
 @observer
 export default class Layer extends Shape {

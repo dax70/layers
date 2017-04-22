@@ -2,3 +2,7 @@
 .debug {
   border: 1px dotted #000; /* #eee; */
 }
+
+.selected {
+  border: 2px solid #000;
+}

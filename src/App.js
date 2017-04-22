@@ -1,12 +1,8 @@
 // @flow
-
 import React, { Component } from 'react';
-import './App.css';
-
 import { observer } from 'mobx-react';
-
 import { Document, Layer, Selectable, Shape, Text, Border, ShapeEditor } from './components';
-
+import './App.css';
 
 class App extends Component {
   render() {

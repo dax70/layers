@@ -32,10 +32,24 @@ export default class Document {
   }
 
   @action selectItem(item: Shape) {
+    if(this.selectedItem) {
+      this.selectedItem.isSelected = false;
+    }
+
+    // When shadow layer gets selected and does not pass objRef
+    if(item) {
+      item.isSelected = true;
+    }
+
     this.selectedItem = item;
   }
 
   @action deselectItem() {
+    if(!this.selectedItem) {
+      return;
+    }
+
+    this.selectedItem.isSelected = false;
     this.selectedItem = null;
   }
 }

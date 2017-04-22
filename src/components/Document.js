@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
-import Layer from './Layer';
 import Shape from './Shape';
+import Layer from './Layer';
+import Selected from './Selected';
 import IdGenerator from '../utils/IdGenerator';
 
 @observer
@@ -24,6 +25,24 @@ export default class Document extends Component {
     doc.deselectItem();
   }
 
+  renderShadowComponent(shape) {
+    const { x, y, height, width, isSelected } = shape;
+    if(shape.isSelected) {
+        return (
+          <Selected key={IdGenerator()()} x={x} y={y}
+                  height={height} width={width}
+                  isSelected={isSelected} objRef={shape}/>
+        )
+    }
+
+    return (
+        <Shape key={IdGenerator()()} x={x} y={y}
+                height={height} width={width}
+                isSelected={isSelected} objRef={shape}
+                onClick={this.onSelectItem} />
+    );
+  }
+
   render() {
     const document = this.props.document;
     const items = document.items;
@@ -39,11 +58,11 @@ export default class Document extends Component {
       switch (item.kind) {
         case 'Layer':
           return (
-            <Layer key={IdGenerator()()} {...item} objRef={item}>
+            <Layer key={IdGenerator()()} {...item} objRef={item} >
             {
               item.shapes.map((shape, i) => {
-                shadowChildren.push(<Shape key={i} {...shape} objRef={shape} onClick={this.onSelectItem} />);
-                return <Shape key={i} {...shape} objRef={shape} onClick={this.onSelectItem}/>
+                shadowChildren.push(this.renderShadowComponent(shape));
+                return <Shape key={i} {...shape} objRef={shape} />
               })
             }
             </Layer>
@@ -54,7 +73,7 @@ export default class Document extends Component {
     });
 
     const shadowLayer = (
-      <Layer key={IdGenerator()()}>
+      <Layer key={IdGenerator()()} onClick={this.onSelectItem}>
         Shadow layer
         { shadowChildren }
       </Layer>

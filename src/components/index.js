@@ -1,7 +1,7 @@
 import Document from './Document';
 import Layer from './Layer';
 import Shape from './Shape';
-import Selectable from './Selectable';
+import Selected from './Selected';
 import Text from './Text';
 import Border from './Border';
 
@@ -11,7 +11,7 @@ export {
   Document,
   Layer,
   Shape,
-  Selectable,
+  Selected,
   Text,
   Border,
   ShapeEditor

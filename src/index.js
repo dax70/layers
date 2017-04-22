@@ -6,6 +6,8 @@ import { Document, Layer, Shape } from './models';
 
 const yellowShape = new Shape({
   color: 'yellow',
+  x: 100,
+  y:100,
   width: 50,
   height: 50
 });

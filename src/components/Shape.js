@@ -1,6 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
+import { css } from 'glamor';
 import type { ShapeProps } from './CommonTypes';
 import './Shape.css';
 
@@ -8,18 +9,18 @@ export type Position = 'static' | 'absolute' | 'relative' | 'fixed' | 'sticky';
 
 const defaultSize = '100%';
 
-function computeStylesFromProps(componentProps) {
-  const { color, x, y, width, height, opacity, position } = componentProps;
+export function computeStylesFromProps(componentProps) {
+  const { color: backgroundColor, x: left, y: top, width, height, opacity, position } = componentProps;
 
-  let style = {
-    backgroundColor: color,
-    position: position,
+  let style = css({
+    backgroundColor,
+    position,
     opacity: typeof opacity === 'number'? opacity/100: 1,
-    left: x,
-    top: y,
-    width: width,
-    height: height
-  }
+    left,
+    top,
+    width,
+    height
+  })
 
   return style;
 }
@@ -35,8 +36,7 @@ export default class Shape extends Component {
     position: 'absolute',
     width: defaultSize,
     height: defaultSize,
-    tag: 'div',
-    mode: 'Debug'
+    tag: 'div'
   };
 
   onClick: Function;
@@ -53,6 +53,7 @@ export default class Shape extends Component {
   renderChildren() {
     const adornments = this.props.adornments;
 
+    // Plain render of children unless wrapping is neeed.
     if(!adornments) {
       return this.renderCore();
     }
@@ -93,8 +94,9 @@ export default class Shape extends Component {
     const computedStyle = this.computeStyles();
     const Tag = this.props.tag || 'div';
 
+
     return (
-      <Tag onClick={this.onClick} style={computedStyle} className={ this.props.mode === 'Debug'? 'debug': null }>
+      <Tag onClick={this.onClick} {...computedStyle}>
         { this.renderChildren() }
       </Tag>
     );

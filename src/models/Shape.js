@@ -21,7 +21,8 @@ export default class Shape {
   @observable color: string = 'red';
   @observable width: Unit = defaultSize;
   @observable height: Unit = defaultSize;
-  @observable mode:string = 'Debug';
+  @observable mode:string = 'debug';
+  @observable isSelected: bool = false;
 
   constructor(props: ShapeProps = defaultValues) {
     const { x, y, color, width, height } = props;
