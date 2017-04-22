@@ -1,8 +1,10 @@
 /* @flow */
 import { observable, action } from 'mobx';
 import Shape from './Shape';
+import Layer from './Layer';
 
 export default class Document {
+  defaultLayer: Layer;
   @observable items: Array<Shape>;
   @observable selectedItem: ?Shape;
 
@@ -11,7 +13,22 @@ export default class Document {
   }
 
   add(item: Shape) {
-    this.items.push(item);
+    if(!this.defaultLayer) {
+        this.defaultLayer = new Layer();
+        this.items.push(this.defaultLayer);
+    }
+
+    // Exit early if layer otherwise add to defaultLayer
+    if(item.kind = 'Layer') {
+      this.items.push(item);
+      return;
+    }
+
+    this.defaultLayer.addShape(item);
+  }
+
+  getSelectedItem(): ?Shape {
+    return this.selectedItem;
   }
 
   @action selectItem(item: Shape) {

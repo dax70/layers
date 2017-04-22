@@ -1,8 +1,8 @@
 
 let current = 0;
 
-export default function () {
-  return current ++;
+export default function generator() {
+  return () => current ++;
 }
 
 /* Idea from GIST https://gist.github.com/gordonbrander/2230317 */
