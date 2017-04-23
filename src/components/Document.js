@@ -52,8 +52,6 @@ export default class Document extends Component {
     const shadowChildren = [];
 
     const renderTree: Array<Shape> = items.map((item, i) => {
-      // const Tag = item.kind;
-      // return <Tag key={i} {...item} />
 
       switch (item.kind) {
         case 'Layer':

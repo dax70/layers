@@ -42,17 +42,8 @@ export default class ShapeEditor extends Component {
   handleChange(color: any, event: SyntheticEvent) {
     // color = {
     //   hex: '#333',
-    //   rgb: {
-    //     r: 51,
-    //     g: 51,
-    //     b: 51,
-    //     a: 1,
-    //   },
-    //   hsl: {
-    //     h: 0,
-    //     s: 0,
-    //     l: .20,
-    //     a: 1,
+    //   rgb: { r: 51, g: 51, b: 51, a: 1, },
+    //   hsl: { h: 0, s: 0, l: .20, a: 1,
     //   },
     // }
 
