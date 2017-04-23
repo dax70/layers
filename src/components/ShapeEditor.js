@@ -4,10 +4,21 @@ import { observer } from 'mobx-react';
 import Color from 'color';
 import { SketchPicker } from 'react-color';
 
+type State = {
+  showColorPicker: boolean
+}
+
 @observer
 export default class ShapeEditor extends Component {
 
-  constructor(props) {
+  updateProperty: Function;
+  onChange: Function;
+  handleChange: Function;
+  toggleColorPicker: Function;
+  noOpColorInput: Function;
+  state: State;
+
+  constructor(props: any) {
     super(props);
     this.updateProperty = this.updateProperty.bind(this);
     this.onChange = this.onChange.bind(this);
@@ -17,15 +28,18 @@ export default class ShapeEditor extends Component {
     this.state = { showColorPicker: false };
   }
 
-  updateProperty (key, value) {
+  updateProperty (key: string, value: string) {
     this.props.shape[key] = value
   }
 
-  onChange (event) {
-    this.updateProperty(event.target.name, event.target.value)
+  onChange (event: SyntheticEvent) {
+    const target = event.target;
+    if (target instanceof HTMLInputElement) {
+      this.updateProperty(target.name, target.value)
+    }
   }
 
-  handleChange(color, event) {
+  handleChange(color: any, event: SyntheticEvent) {
     // color = {
     //   hex: '#333',
     //   rgb: {
@@ -42,7 +56,7 @@ export default class ShapeEditor extends Component {
     //   },
     // }
 
-    const {shape} = this.props;
+    const { shape } = this.props;
 
     if(!shape) {
       return ;
@@ -55,12 +69,12 @@ export default class ShapeEditor extends Component {
     shape.color = rgba.toString();
   }
 
-  toggleColorPicker(event) {
+  toggleColorPicker(event: SyntheticEvent) {
     event.preventDefault();
     this.setState({ showColorPicker: !this.state.showColorPicker});
   }
 
-  noOpColorInput(event) {
+  noOpColorInput(event: SyntheticEvent) {
     event.preventDefault();
   }
 

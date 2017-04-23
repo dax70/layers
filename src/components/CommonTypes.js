@@ -3,7 +3,7 @@
 /* Probably should rename to CommonProps */
 import React from 'react';
 
-export type Unit = Number | String;
+export type Unit = number | string;
 
 export type Visibility = 'visible' | 'hidden' | 'exclude';
 
@@ -11,12 +11,12 @@ export type ShapeMode = 'Normal' | 'Debug' | 'Draggable';
 
 export type ShapeProps = {
   children?: any,
-  color?: String,
+  color?: string,
   x: Unit,
-  y: Number,
+  y: number,
   width: Unit,
   height: Unit,
-  opacity?: Number,
+  opacity?: number,
   position: Position,
   tag?: any,
   adornments: any,
@@ -26,8 +26,8 @@ export type ShapeProps = {
 }
 
 export type ShapeStyles = {
-  color: String,
-  textColor: String
+  color: string,
+  textColor: string
 }
 
 export type ShapeKind = {

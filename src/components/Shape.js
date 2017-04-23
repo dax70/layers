@@ -9,7 +9,7 @@ export type Position = 'static' | 'absolute' | 'relative' | 'fixed' | 'sticky';
 
 const defaultSize = '100%';
 
-export function computeStylesFromProps(componentProps) {
+export function computeStylesFromProps(componentProps: ShapeProps) {
   const { color: backgroundColor, x: left, y: top, width, height, opacity, position } = componentProps;
 
   let style = css({
