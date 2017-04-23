@@ -19,7 +19,7 @@ export default class Document {
     }
 
     // Exit early if layer otherwise add to defaultLayer
-    if(item.kind = 'Layer') {
+    if(item.kind === 'Layer') {
       this.items.push(item);
       return;
     }
