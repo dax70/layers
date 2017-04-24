@@ -2,8 +2,13 @@ import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import Shape from './Shape';
 import Layer from './Layer';
-import Selected from './Selected';
+import ShadowShape from './ShadowShape';
 import IdGenerator from '../utils/IdGenerator';
+
+const dragLogger = (e: MouseEvent, data: Object) => {
+  // console.log('Event: ', event);
+  // console.log('Data: ', data);
+};
 
 @observer
 export default class Document extends Component {
@@ -15,6 +20,7 @@ export default class Document extends Component {
 
   onSelectItem(e, component) {
     e.stopPropagation();
+    // e.preventDefault();
     const doc = this.props.document;
     doc.selectItem(component.props.objRef);
     console.log(doc.getSelectedItem());
@@ -25,13 +31,24 @@ export default class Document extends Component {
     doc.deselectItem();
   }
 
+  onDragStart = (e, data) => {
+  }
+
+  handleStop = (e, data) => {
+    const shape = this.props.document.getSelectedItem();
+    const { x, y } = data;
+    shape.move(x, y);
+  }
+
   renderShadowComponent(shape) {
     const { x, y, height, width, isSelected } = shape;
     if(shape.isSelected) {
         return (
-          <Selected key={IdGenerator()()} x={x} y={y}
-                  height={height} width={width}
-                  isSelected={isSelected} objRef={shape}/>
+          <ShadowShape key={IdGenerator()()}
+            shape={shape}
+            onDragStart={dragLogger}
+            onDrag={dragLogger}
+            onDragStop={this.handleStop} />
         )
     }
 
@@ -46,8 +63,6 @@ export default class Document extends Component {
   render() {
     const document = this.props.document;
     const items = document.items;
-    const selectedItem = document.getSelectedItem();
-    console.log(selectedItem);
 
     const shadowChildren = [];
 
@@ -72,14 +87,15 @@ export default class Document extends Component {
 
     const shadowLayer = (
       <Layer key={IdGenerator()()} onClick={this.onSelectItem}>
-        Shadow layer
         { shadowChildren }
       </Layer>
     );
 
     renderTree.push(shadowLayer);
+
     return (
-      <div style={{position: 'relative'}}>
+      <div>
+        { /* Shadow DOM layer */}
         { renderTree }
       </div>
     );

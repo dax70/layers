@@ -12,7 +12,7 @@ class App extends Component {
     return (
       <div className="App">
         <div>
-          <div style={{position: 'fixed', top: 30, right: 10, zIndex:7000}}>
+          <div style={{float: 'right', zIndex:7000}}>
             <ShapeEditor shape={doc.selectedItem}/>
           </div>
         </div>

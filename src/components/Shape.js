@@ -1,7 +1,6 @@
 // @flow
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
-import { css } from 'glamor';
 import type { ShapeProps } from './CommonTypes';
 import './Shape.css';
 
@@ -9,20 +8,20 @@ export type Position = 'static' | 'absolute' | 'relative' | 'fixed' | 'sticky';
 
 const defaultSize = '100%';
 
-export function computeStylesFromProps(componentProps: ShapeProps) {
-  const { color: backgroundColor, x: left, y: top, width, height, opacity, position } = componentProps;
-
-  let style = css({
+export function computeStylesFromProps(componentProps: ShapeProps, injectStyle: Function) {
+  const { color: backgroundColor, x, y, width, height, opacity,  } = componentProps;
+  let style = {
     backgroundColor,
-    position,
     opacity: typeof opacity === 'number'? opacity/100: 1,
-    left,
-    top,
     width,
     height
-  })
+  }
 
-  return style;
+  if(injectStyle) {
+    style = Object.assign({}, style, injectStyle());
+  }
+
+  return {style};
 }
 
 @observer
@@ -80,7 +79,9 @@ export default class Shape extends Component {
   }
 
   computeStyles() {
-    return computeStylesFromProps(this.props);
+    const { x, y } = this.props;
+    const injectStyle = () => ({transform: `translate(${x}px,${y}px)`});
+    return computeStylesFromProps(this.props, injectStyle);
   }
 
   onClick(e: SyntheticEvent) {
