@@ -59,7 +59,7 @@ export default class Selected extends Shape {
   }
 
   renderChildren() {
-    const { width, height } = this.props;
+    // const { width, height } = this.props;
     // const style = { top: 3, left: 3, width: width + 2, height: height + 2}
     return (
       <div style={{ width: '100%', height: '100%'}}>

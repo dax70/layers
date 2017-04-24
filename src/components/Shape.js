@@ -9,7 +9,7 @@ export type Position = 'static' | 'absolute' | 'relative' | 'fixed' | 'sticky';
 const defaultSize = '100%';
 
 export function computeStylesFromProps(componentProps: ShapeProps, injectStyle: Function) {
-  const { color: backgroundColor, x, y, width, height, opacity,  } = componentProps;
+  const { color: backgroundColor, width, height, opacity,  } = componentProps;
   let style = {
     backgroundColor,
     opacity: typeof opacity === 'number'? opacity/100: 1,
