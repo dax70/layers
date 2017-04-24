@@ -1,5 +1,6 @@
 // @flow
 import React, { Component } from 'react';
+import { observer } from 'mobx-react';
 
 export type BorderStyle =
   'none' |
@@ -21,6 +22,7 @@ export type Props = {
   style: BorderStyle
 }
 
+@observer
 export default class Border extends Component {
 
   props: Props;

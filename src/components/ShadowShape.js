@@ -11,17 +11,17 @@ export default class ShadowShape extends Component {
 
   constructor(props) {
       super(props);
-      this.onDragStart = this.onDragStart.bind(this);
+      // this.onDragStart = this.onDragStart.bind(this);
+      // this.onDragStop = this.onDragStop.bind(this);
       this.onDrag = this.onDrag.bind(this);
-      this.onDragStop = this.onDragStop.bind(this);
   }
 
-  onDragStart(e, data) {
-    const onDragStart = this.props.onDragStart;
-    if(onDragStart) {
-      onDragStart(e, data);
-    }
-  }
+  // onDragStart(e, data) {
+  //   const onDragStart = this.props.onDragStart;
+  //   if(onDragStart) {
+  //     onDragStart(e, data);
+  //   }
+  // }
 
   onDrag(e, data) {
     const onDrag = this.props.onDrag;
@@ -30,12 +30,12 @@ export default class ShadowShape extends Component {
     }
   }
 
-  onDragStop(e, data) {
-    const onDragStop = this.props.onDragStop;
-    if(onDragStop) {
-      onDragStop(e, data);
-    }
-  }
+  // onDragStop(e, data) {
+  //   const onDragStop = this.props.onDragStop;
+  //   if(onDragStop) {
+  //     onDragStop(e, data);
+  //   }
+  // }
 
   render() {
     const shape = this.props.shape;
@@ -43,13 +43,11 @@ export default class ShadowShape extends Component {
 
     return (
       <Draggable position={{x, y}}
-        onStart={this.onDragStart}
-        onDrag={this.onDrag}
-        onStop={this.onDragStop}>
+                      onStop={this.onDrag}>
         <div>
           <Selected x={x} y={y}
-                height={height} width={width}
-                isSelected={isSelected} objRef={shape}/>
+              height={height} width={width}
+              isSelected={isSelected} objRef={shape}/>
         </div>
       </Draggable>
     )

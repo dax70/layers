@@ -31,10 +31,7 @@ export default class Document extends Component {
     doc.deselectItem();
   }
 
-  onDragStart = (e, data) => {
-  }
-
-  handleStop = (e, data) => {
+  handleDrag = (e, data) => {
     const shape = this.props.document.getSelectedItem();
     const { x, y } = data;
     shape.move(x, y);
@@ -46,9 +43,7 @@ export default class Document extends Component {
         return (
           <ShadowShape key={IdGenerator()()}
             shape={shape}
-            onDragStart={dragLogger}
-            onDrag={dragLogger}
-            onDragStop={this.handleStop} />
+            onDrag={this.handleDrag} />
         )
     }
 

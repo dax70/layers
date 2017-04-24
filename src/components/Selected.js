@@ -1,4 +1,5 @@
 import React from 'react';
+import { observer } from 'mobx-react';
 import { css, style } from 'glamor';
 import Shape, { computeStylesFromProps }  from './Shape';
 
@@ -44,6 +45,7 @@ const bottomRight = css({
   height: 9
 });
 
+@observer
 export default class Selected extends Shape {
 
   computeStyles() {
