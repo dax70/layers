@@ -59,9 +59,7 @@ export default class Selected extends Shape {
     };
     const props = Object.assign({}, prevProps, newProps);
 
-    const { x, y } = newProps;
-    const injectStyle = () => ({transform: `translate(${x}px,${y}px)`});
-    return computeStylesFromProps(props, injectStyle);
+    return computeStylesFromProps(props);
   }
 
   renderChildren() {
