@@ -10,7 +10,8 @@ const handleStyle = css({
 });
 
 const border = style({
-  border: '1px solid #bbb'
+  border: '1px solid #bbb',
+  transform: 'translate(3px,3px)'
 });
 
 const topLeft = css({
@@ -57,15 +58,17 @@ export default class Selected extends Shape {
       height: prevProps.height +9
     };
     const props = Object.assign({}, prevProps, newProps);
-    return computeStylesFromProps(props);
+
+    const { x, y } = newProps;
+    const injectStyle = () => ({transform: `translate(${x}px,${y}px)`});
+    return computeStylesFromProps(props, injectStyle);
   }
 
   renderChildren() {
-    // const { width, height } = this.props;
-    // const style = { top: 3, left: 3, width: width + 2, height: height + 2}
+    const { width, height } = this.props;
     return (
       <div style={{ width: '100%', height: '100%'}}>
-        <div {...border} >
+        <div {...border} style={{ width:width +2, height: height +2 }}>
         </div>
         <div {...css(topLeft, handleStyle)}>
         </div>
@@ -75,6 +78,7 @@ export default class Selected extends Shape {
         </div>
         <div {...css(bottomRight, handleStyle)}>
         </div>
+        { this.renderCore() }
       </div>
     );
   }

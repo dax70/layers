@@ -21,6 +21,9 @@ export default class Shape {
   @observable color: string = 'red';
   @observable width: Unit = defaultSize;
   @observable height: Unit = defaultSize;
+  @observable rotation: number;
+  @observable skewX: number;
+  @observable skewY: number;
   @observable mode:string = 'debug';
   @observable isSelected: bool = false;
 

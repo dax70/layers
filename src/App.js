@@ -1,11 +1,12 @@
 // @flow
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
+import DevTools from 'mobx-react-devtools'
 import { Document, ShapeEditor } from './components';
 import './App.css';
 
 @observer
-class App extends Component {
+export default class App extends Component {
   render() {
     const doc = this.props.document;
 
@@ -17,9 +18,8 @@ class App extends Component {
           </div>
         </div>
         <Document document={doc}/>
+        <DevTools />
       </div>
     );
   }
 }
-
-export default observer(App);

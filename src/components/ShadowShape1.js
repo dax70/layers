@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
-import Draggable from 'react-draggable';
-import Shape from './Shape';
+import { DraggableCore } from 'react-draggable';
 import Selected from './Selected';
 
 @observer
@@ -43,16 +42,11 @@ export default class ShadowShape extends Component {
     const { x, y, height, width, isSelected } = shape;
 
     return (
-      <Draggable position={{x, y}}
-                      onStop={this.onDrag}>
-        <div>
-          <Selected
+      <DraggableCore onDrag={this.onDrag}>
+        <Selected x={x} y={y}
               height={height} width={width}
-              isSelected={isSelected} objRef={shape}>
-              <Shape color={shape.color} width={shape.width} height={shape.height}/>
-          </Selected>
-        </div>
-      </Draggable>
+              isSelected={isSelected} objRef={shape}/>
+      </DraggableCore>
     )
   }
 }

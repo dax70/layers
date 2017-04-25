@@ -5,10 +5,10 @@ import Layer from './Layer';
 import ShadowShape from './ShadowShape';
 import IdGenerator from '../utils/IdGenerator';
 
-const dragLogger = (e: MouseEvent, data: Object) => {
+// const dragLogger = (e: MouseEvent, data: Object) => {
   // console.log('Event: ', event);
   // console.log('Data: ', data);
-};
+// };
 
 @observer
 export default class Document extends Component {

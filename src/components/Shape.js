@@ -4,21 +4,37 @@ import { observer } from 'mobx-react';
 import type { ShapeProps } from './CommonTypes';
 import './Shape.css';
 
-export type Position = 'static' | 'absolute' | 'relative' | 'fixed' | 'sticky';
+function translateStyle(x,y) {
+  return { transform: `translate(${x}px,${y}px)` };
+}
 
 const defaultSize = '100%';
 
-export function computeStylesFromProps(componentProps: ShapeProps, injectStyle: Function) {
-  const { color: backgroundColor, width, height, opacity,  } = componentProps;
+export function computeStylesFromProps(componentProps: ShapeProps) {
+  const { x, y, color: backgroundColor, width, height, opacity, position } = componentProps;
+
+  let condStyle;
+
+  switch (position) {
+    case 'absolute':
+      condStyle = { position: 'absolute', top: x, left: y};
+      break;
+    case 'relative':
+      condStyle = { position: 'relative', top: x, left: y};
+      break;
+    case 'translate':
+      condStyle = translateStyle(x, y);
+      break;
+    default:
+      throw new Error(`position ${position} is not a supported value.`);
+  }
+
   let style = {
     backgroundColor,
     opacity: typeof opacity === 'number'? opacity/100: 1,
     width,
-    height
-  }
-
-  if(injectStyle) {
-    style = Object.assign({}, style, injectStyle());
+    height,
+    ...condStyle
   }
 
   return {style};
@@ -32,7 +48,7 @@ export default class Shape extends Component {
   static defaultProps = {
     x: 0,
     y: 0,
-    position: 'absolute',
+    position: 'translate',
     width: defaultSize,
     height: defaultSize,
     tag: 'div'
@@ -79,9 +95,7 @@ export default class Shape extends Component {
   }
 
   computeStyles() {
-    const { x, y } = this.props;
-    const injectStyle = () => ({transform: `translate(${x}px,${y}px)`});
-    return computeStylesFromProps(this.props, injectStyle);
+    return computeStylesFromProps(this.props, null);
   }
 
   onClick(e: SyntheticEvent) {

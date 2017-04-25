@@ -7,6 +7,8 @@ export type Unit = number | string;
 
 export type Visibility = 'visible' | 'hidden' | 'exclude';
 
+export type Position = 'absolute' | 'relative' | 'translate';
+
 export type ShapeMode = 'Normal' | 'Debug' | 'Draggable';
 
 export type ShapeProps = {
